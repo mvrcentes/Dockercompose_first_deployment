@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instala las dependencias utilizando npm o yarn (puedes elegir el que prefieras)
-RUN npm init -y
+RUN npm i
 
 # Copia el resto de los archivos de la aplicación
 COPY . .
