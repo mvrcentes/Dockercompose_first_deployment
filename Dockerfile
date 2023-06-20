@@ -1,5 +1,3 @@
-FROM node:20-alpine
-
 # Utiliza una imagen base más reciente de Node.js
 FROM node:20-alpine
 
