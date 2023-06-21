@@ -4,4 +4,4 @@ metadata:
   name: my-mongo-configmap
   namespace: first-deployment
 data:
-  database_url: mongodb://my-mongodb-service:27017
+  DATABASE_URL: mongodb://my-mongodb-service:27017
