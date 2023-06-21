@@ -18,7 +18,7 @@ spec:
           image: mvrcentes/first_deployment:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+          - containerPort: 3000
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               valueFrom: 
@@ -30,7 +30,23 @@ spec:
                 secretKeyRef:
                   name: mongo-secret
                   key: MONGO-ROOT-PASSWORD
+            - name: DATABASE_URL
               valueFrom: 
                 configMapKeyRef:
                   name: my-mongo-configmap
-                  key: database_url
+                  key: DATABASE_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-hellomongo
+  namespace: first-deployment
+spec:
+  selector:
+    app: my-hellomongo
+    namespace: first-deployment
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

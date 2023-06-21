@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-test-deployment
+  namespace: first-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-test-deployment
+  template:
+    metadata:
+      labels:
+        app: my-test-deployment
+    spec:
+      containers: 
+      - image: hellomongo
+        name: my-test-deployment
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-test-service
+  namespace: first-deployment
+spec:
+  type: NodePort
+  ports: 
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30002
+  selector:
+    app: my-test-deployment
