@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-hellomongo
+  namespace: first-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-hellomongo
+  template:
+    metadata:
+      labels:
+        app: my-hellomongo
+    spec:
+      containers:
+        - name: my-hellomongo
+          image: mvrcentes/first_deployment:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom: 
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO-ROOT-USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom: 
+                secretKeyRef:
+                  name: mongo-secret
+                  key: MONGO-ROOT-PASSWORD
+              valueFrom: 
+                configMapKeyRef:
+                  name: my-mongo-configmap
+                  key: database_url
